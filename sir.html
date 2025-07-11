@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIR Model – Disease Spread Simulation</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f9fafa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .healthify-banner {
+      display: block;
+      width: 100%;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      background-color: #0047ab;
+      text-decoration: none;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .healthify-banner:hover {
+      background-color: #003580;
+      transform: scale(1.03);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 100px auto 40px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #005eb8;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 650px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="healthify-banner">Healthify</a>
+
+  <div class="container">
+    <h2>SIR Model: Simulating Disease Spread</h2>
+
+    <p>
+      This interactive model allows users to explore how the <strong>Basic Reproduction Number (R₀)</strong> influences the spread of infectious disease over time. 
+      You can observe trends in the <em>Susceptible (S), Infected (I), and Recovered (R)</em> populations across varying outbreak durations.
+    </p>
+
+    <p>
+      Simulation parameters are based on Bayesian estimates from Osthus et al. (2017) and foundational models by Cohen, Keeling, and Rothman (2008).
+    </p>
+
+    <iframe 
+      title="SIR Model Simulation" 
+      src="https://healthifywebapp.shinyapps.io/app_sir/" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+</body>
+</html>
