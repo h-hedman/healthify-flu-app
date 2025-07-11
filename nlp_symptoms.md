@@ -1,58 +1,43 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flu Symptom NLP Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healthify | NLP Symptom Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f9fafa;
+      color: #333;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
-      text-align: center;
     }
 
-    #chartContainer {
-      width: 80%;
-      max-width: 600px;
-      margin: 20px auto;
-      background-color: #f4f4f4;
-    }
-
-    .healthify-banner {
-      display: block;
-      width: 100%;
-      padding: 20px;
-      font-size: 28px;
-      font-weight: bold;
+    .header {
+      background: linear-gradient(to right, #005eb8, #007c9e);
       color: white;
-      background-color: #0047ab;
-      text-decoration: none;
-      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 1.6rem;
+      font-weight: 600;
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
       z-index: 1000;
     }
 
-    .healthify-banner:hover {
-      background-color: #003580;
-      transform: scale(1.03);
-    }
-
     .container {
-      max-width: 800px;
-      margin: 80px auto 40px auto;
-      padding: 20px;
+      max-width: 1000px;
+      margin: 100px auto 2rem auto;
+      padding: 0 1rem;
     }
 
     .iframe-container {
       width: 100%;
-      max-width: 1200px;
-      margin: auto;
       overflow: hidden;
       position: relative;
-      padding-top: 56.25%;
+      padding-top: 56.25%; /* Maintain 16:9 ratio */
     }
 
     .iframe-container iframe {
@@ -64,88 +49,23 @@
       border: none;
       border-radius: 8px;
     }
-
-    iframe + div {
-      display: none !important;
-    }
   </style>
 </head>
 <body>
 
-  <a href="index.html" class="healthify-banner">Healthify</a>
-
-  <div class="iframe-container">
-    <iframe 
-      title="Flu NLP Symptoms Shiny App" 
-      src="https://healthifywebapp.shinyapps.io/app_nlp_symptoms/" 
-      allowfullscreen>
-    </iframe>
+  <div class="header">
+    Healthify: NLP Symptom Analysis
   </div>
 
-  <br><br>
-  <div><h3>Automatic Clinical Notes Analysis Based on Sample CDC Data</h3></div>
-  <br>
-  <div id="rowCount">Loading...</div>
-  <div id="chartContainer">
-    <canvas id="myChart"></canvas>
+  <div class="container">
+    <div class="iframe-container">
+      <iframe 
+        title="Flu NLP Symptoms Shiny App" 
+        src="https://healthifywebapp.shinyapps.io/app_nlp_symptoms/" 
+        allowfullscreen>
+      </iframe>
+    </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    fetch('test_data.txt')
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.text();
-      })
-      .then(data => {
-        const rows = data.split('\n').map(line => line.trim()).filter(line => line !== '');
-        document.getElementById('rowCount').textContent = "Number of rows: " + rows.length;
-
-        const ageFrequency = {};
-        const ageRegex = /Patient Age:\s*(\d+)/;
-
-        rows.forEach(row => {
-          const match = row.match(ageRegex);
-          if (match && match[1]) {
-            const age = match[1];
-            ageFrequency[age] = (ageFrequency[age] || 0) + 1;
-          }
-        });
-
-        const labels = Object.keys(ageFrequency)
-          .map(Number).sort((a, b) => a - b).map(String);
-        const counts = labels.map(age => ageFrequency[age]);
-
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Frequency',
-              data: counts,
-              backgroundColor: 'rgba(75, 192, 192, 0.2)',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
-                ticks: {
-                  precision: 0
-                }
-              }
-            }
-          }
-        });
-      })
-      .catch(error => {
-        console.error('Error while fetching the text file:', error);
-        document.getElementById('rowCount').textContent = "Error loading file.";
-      });
-  </script>
 
 </body>
 </html>
