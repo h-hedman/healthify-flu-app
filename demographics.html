@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Healthify | Demographics</title>
+  <title>Healthify | Demographic Trends</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -20,26 +20,31 @@
       padding: 1.5rem 2rem;
       font-size: 1.6rem;
       font-weight: 600;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
     }
 
     .container {
       max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      margin: 0 auto;
+      padding: 7rem 1rem 3rem 1rem; /* accounts for fixed header */
     }
 
     h2 {
       color: #005eb8;
-      margin-top: 2.5rem;
+      margin-top: 3rem;
     }
 
     .iframe-container {
       width: 100%;
       max-width: 1000px;
-      margin: 1rem auto;
+      margin: auto;
       overflow: hidden;
       position: relative;
-      padding-top: 56.25%; /* 16:9 ratio */
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
     }
 
     .iframe-container iframe {
@@ -54,43 +59,86 @@
 
     .caption {
       font-size: 0.95rem;
-      color: #444;
+      font-weight: normal;
+      color: #333;
+      margin-top: 1rem;
       text-align: left;
-      line-height: 1.5;
-      margin: 0.5rem auto 2rem auto;
-      max-width: 900px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    /* Hide unnecessary iframe overlays */
+    iframe + div {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 6rem 1rem 2rem 1rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="header">
-    Healthify: Demographic Insights
+    Healthify: Demographic Trends
   </div>
 
   <div class="container">
 
+    <!-- Age Group Incidence Plot -->
     <h2>Age Group Incidence</h2>
     <div class="iframe-container">
-      <iframe title="Age Group Incidence" aria-label="Multiple Lines" src="https://datawrapper.dwcdn.net/QWBVI/1/" scrolling="no" frameborder="0" height="408" data-external="1"></iframe>
+      <iframe title="Age Group Incidence"
+              aria-label="Multiple Lines"
+              src="https://datawrapper.dwcdn.net/QWBVI/1/"
+              scrolling="no"
+              frameborder="0"
+              height="408"
+              data-external="1">
+      </iframe>
     </div>
     <p class="caption">
       As widely cited in the literature, elderly populations are at greater risk of morbidity and mortality from seasonal influenza (Langer et al. 2023, Awaidy et al. 2024). 
       Data trends show an increase across age groups, with the highest rates exhibited among individuals aged 75–84 years (257.34 per 100,000).
     </p>
 
+    <!-- Race/Ethnicity Incidence Plot -->
     <h2>Race/Ethnicity Incidence</h2>
     <div class="iframe-container">
-      <iframe title="Race/Ethnicity Incidence" aria-label="Multiple Lines" src="https://datawrapper.dwcdn.net/4E6Lq/1/" scrolling="no" frameborder="0" height="425" data-external="1"></iframe>
+      <iframe title="Race/Ethnicity Incidence"
+              aria-label="Multiple Lines"
+              src="https://datawrapper.dwcdn.net/4E6Lq/1/"
+              scrolling="no"
+              frameborder="0"
+              height="425"
+              data-external="1">
+      </iframe>
     </div>
     <p class="caption">
       Structural inequities persist in reducing the likelihood that Black, American Indian/Alaska Native, Latina/o, Asian populations, and individuals of low socioeconomic status will receive the influenza vaccine (Stafford et al. 2024, Black 2022, O’Halloran et al. 2021). 
-      This trend is reflected in our 2025 data, where the highest median incidence rates are observed among Black (99.7 per 100,000) and American Indian/Alaskan Native (65.9 per 100,000) populations.
+      This trend is reflected in our 2025 data, where the highest median incidence rates are observed among Black (99.7 per 100,000) and American Indian/Alaska Native (65.9 per 100,000) populations.
     </p>
 
+    <!-- Sex Incidence Plot -->
     <h2>Sex Incidence</h2>
     <div class="iframe-container">
-      <iframe title="Sex Incidence" aria-label="Interactive line chart" src="https://datawrapper.dwcdn.net/hm1js/1/" scrolling="no" frameborder="0" height="383" data-external="1"></iframe>
+      <iframe title="Sex Incidence"
+              aria-label="Interactive line chart"
+              src="https://datawrapper.dwcdn.net/hm1js/1/"
+              scrolling="no"
+              frameborder="0"
+              height="383"
+              data-external="1">
+      </iframe>
     </div>
     <p class="caption">
       While men and women face similar risk factors for seasonal influenza, pregnancy can be an additional risk factor (Darling et al. 2022, Abdullahi et al. 2021). 
@@ -100,19 +148,21 @@
   </div>
 
   <script type="text/javascript">
+    // Adjust iframe height for Datawrapper embeds
     !function() {
       "use strict";
-      window.addEventListener("message", (function(a) {
-        if (void 0 !== a.data["datawrapper-height"]) {
-          var e = document.querySelectorAll("iframe");
-          for (var t in a.data["datawrapper-height"])
-            for (var r = 0; r < e.length; r++)
-              if (e[r].contentWindow === a.source) {
-                var i = a.data["datawrapper-height"][t] + "px";
-                e[r].style.height = i;
+      window.addEventListener("message", function(e) {
+        if (void 0 !== e.data["datawrapper-height"]) {
+          for (let id in e.data["datawrapper-height"]) {
+            let iframes = document.querySelectorAll("iframe");
+            for (let i = 0; i < iframes.length; i++) {
+              if (iframes[i].contentWindow === e.source) {
+                iframes[i].style.height = e.data["datawrapper-height"][id] + "px";
               }
+            }
+          }
         }
-      }));
+      });
     }();
   </script>
 
