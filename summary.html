@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Healthify: Flu Summary</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -14,11 +15,13 @@
     }
 
     .header {
+      width: 100%;
       background: linear-gradient(to right, #005eb8, #007c9e);
       color: white;
       padding: 1.5rem 2rem;
       font-size: 1.6rem;
       font-weight: 600;
+      box-sizing: border-box;
     }
 
     .container {
@@ -101,19 +104,21 @@
     <h2>Median Confirmed Hospitalizations of Seasonal Flu Incidence per 100,000 Population</h2>
 
     <div class="iframe-container">
-      <iframe title="Flu Incidence Trends" 
-              aria-label="Interactive line chart" 
-              id="datawrapper-chart-jPRTH" 
-              src="https://datawrapper.dwcdn.net/jPRTH/1/" 
-              scrolling="no" frameborder="0" 
-              style="width: 0; min-width: 100% !important; border: none;" 
-              height="383" data-external="1">
+      <iframe 
+        title="Flu Incidence Trends" 
+        aria-label="Interactive line chart" 
+        id="datawrapper-chart-jPRTH" 
+        src="https://datawrapper.dwcdn.net/jPRTH/1/" 
+        scrolling="no" 
+        frameborder="0" 
+        style="width: 0; min-width: 100% !important; border: none;" 
+        height="383" 
+        data-external="1">
       </iframe>
     </div>
 
     <p class="source-note">
-      Influenza Hospitalization Surveillance Network (FluSurv-NET) conducts population-based surveillance for laboratory-confirmed influenza-associated hospitalizations in children (persons younger than 18 years) and adults.
-      <br>
+      Influenza Hospitalization Surveillance Network (FluSurv-NET) conducts population-based surveillance for laboratory-confirmed influenza-associated hospitalizations in children and adults.<br>
       <a href="https://gis.cdc.gov/GRASP/Fluview/" target="_blank">Source: CDC FluSurv-NET</a>
     </p>
   </div>
@@ -124,20 +129,21 @@
   </div>
 
   <script type="text/javascript">
-    !function() {
+    (function() {
       "use strict";
-      window.addEventListener("message", function(a) {
-        if (void 0 !== a.data["datawrapper-height"]) {
-          var e = document.querySelectorAll("iframe");
-          for (var t in a.data["datawrapper-height"])
-            for (var r = 0; r < e.length; r++)
-              if (e[r].contentWindow === a.source) {
-                var i = a.data["datawrapper-height"][t] + "px";
-                e[r].style.height = i;
+      window.addEventListener("message", function(event) {
+        if (event.data["datawrapper-height"]) {
+          const iframes = document.querySelectorAll("iframe");
+          for (const chartId in event.data["datawrapper-height"]) {
+            for (let i = 0; i < iframes.length; i++) {
+              if (iframes[i].contentWindow === event.source) {
+                iframes[i].style.height = event.data["datawrapper-height"][chartId] + "px";
               }
+            }
+          }
         }
       });
-    }();
+    })();
   </script>
 
 </body>
